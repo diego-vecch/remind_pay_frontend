@@ -29,6 +29,12 @@ export default function HomePage({ navigation }) {
           navigation.navigate("Login");
         }}
       />
+      <ButtonApp
+        text="Register"
+        onPress={() => {
+          navigation.navigate("Register");
+        }}
+      />
       <Text>Hola estoy </Text>
       <Text> haciendo fetch en: {username}</Text>
     </View>
