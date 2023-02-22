@@ -1,23 +1,38 @@
 import { Text, TextInput, View, SafeAreaView } from "react-native";
 import ButtonApp from "../components/ButtonApp";
 import SvgComponent from "../components/Icons/LogoRemindPay";
-import {useState} from 'react';
-import ButtonWhioutBg from '../components/ButtonWhitoutBg'
+import { useState, useEffect } from "react";
+import ButtonWhioutBg from "../components/ButtonWhitoutBg";
 
 export default function LoginForm({ navigation }) {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function login() {
+    console.warn(user, password);
+    let item = { user, password };
+    let result = await fetch("http://127.0.0.1:4000/api/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "aplicacttion/json",
+        Accept: "aplicacttion/json",
+      },
+      body: JSON.stringify(item),
+    });
+    result = await result.json();
+    localStorage.setItem("user-info",JSON.stringify(result))
+  }
+
   return (
     <View className="bg-indigo-300 h-full flex items-center">
-      <Text
-        className="bg-indigo-300 text-violet-700 h-10 text-2xl mt-20 w-72 float-left"
-      >
-        Email or Username
+      <Text className="bg-indigo-300 text-violet-700 h-10 text-2xl mt-20 w-72 float-left">
+        Email
       </Text>
       <SafeAreaView>
         <TextInput
           className="bg-violet-200 h-12 w-72 mx-6 border-2 mb-2 px-3 border-violet-300 focus:border-violet-700"
-          placeholder="ex: Annie"value={user}
+          placeholder="ex: annie@gm..."
+          value={user}
           onChangeText={setUser}
           autoCapitalize="none"
         />
@@ -34,12 +49,8 @@ export default function LoginForm({ navigation }) {
           autoCapitalize="none"
         />
       </SafeAreaView>
-      <ButtonApp
-        text="Login"
-        onPress={() => {
-          navigation.navigate("Profile");
-        }}
-      /><ButtonWhioutBg text="Forgot your password?"/>
+      <ButtonApp text="Login" onPress={login} />
+      <ButtonWhioutBg text="Forgot your password?" />
       <SvgComponent className="mt-12" />
     </View>
   );
