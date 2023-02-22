@@ -11,7 +11,7 @@ export default function LoginForm({ navigation }) {
   async function login() {
     console.warn(user, password);
     let item = { user, password };
-    let result = await fetch("http://127.0.0.1:4000/api/auth/signin", {
+    let result = await fetch("https://node-express-auth-production.up.railway.app/api/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "aplicacttion/json",
@@ -20,7 +20,6 @@ export default function LoginForm({ navigation }) {
       body: JSON.stringify(item),
     });
     result = await result.json();
-    localStorage.setItem("user-info",JSON.stringify(result))
   }
 
   return (
