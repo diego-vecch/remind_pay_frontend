@@ -9,8 +9,6 @@ This repository is for the frontend development of the mobile version of the "**
 
 `npm install`
 
-`npm audit --force`
-
 `npm expo update`
 
 `expo start`
